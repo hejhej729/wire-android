@@ -85,6 +85,7 @@ class HomeDrawerViewModel @Inject constructor(
                             unreadCount = unreadArchiveConversationsCount
                         )
                     )
+                    add(DrawerUiItem.RegularItem(destination = HomeDestination.Broadcast))
                 } to buildList {
                     add(DrawerUiItem.RegularItem(destination = HomeDestination.WhatsNew))
                     add(DrawerUiItem.RegularItem(destination = HomeDestination.Settings))

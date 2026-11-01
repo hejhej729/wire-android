@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.wire.android.di.metro.MetroViewModelGraph
 import com.wire.android.di.metro.wireAssistedMetroViewModel
 import com.wire.android.di.metro.wireMetroViewModel
+import com.wire.android.ui.home.broadcast.BroadcastViewModel
 import com.wire.android.ui.home.conversationslist.ConversationListViewModel
 import com.wire.android.ui.home.conversationslist.ConversationListViewModelImpl
 import com.wire.android.ui.home.conversationslist.ConversationListViewModelPreview
@@ -51,6 +52,10 @@ fun appSyncViewModel(): AppSyncViewModel =
 
 @Composable
 fun homeDrawerViewModel(): HomeDrawerViewModel =
+    wireMetroViewModel()
+
+@Composable
+fun broadcastViewModel(): BroadcastViewModel =
     wireMetroViewModel()
 
 @Composable

@@ -96,6 +96,7 @@ internal enum class HomeTopLevelDestination {
     SETTINGS,
     VAULT,
     ARCHIVE,
+    BROADCAST,
     WHATS_NEW,
     CELLS,
     MEETINGS,
@@ -116,6 +117,7 @@ internal fun HomeDestination.toNavigation3Target(): HomeNavigation3Target = when
     HomeDestination.Settings -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.SETTINGS)
     HomeDestination.Vault -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.VAULT)
     HomeDestination.Archive -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.ARCHIVE)
+    HomeDestination.Broadcast -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.BROADCAST)
     HomeDestination.WhatsNew -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.WHATS_NEW)
     HomeDestination.Cells -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.CELLS)
     HomeDestination.Meetings -> HomeNavigation3Target.TopLevel(HomeTopLevelDestination.MEETINGS)
@@ -128,6 +130,7 @@ internal fun HomeTopLevelDestination.toHomeDestination(): HomeDestination = when
     HomeTopLevelDestination.SETTINGS -> HomeDestination.Settings
     HomeTopLevelDestination.VAULT -> HomeDestination.Vault
     HomeTopLevelDestination.ARCHIVE -> HomeDestination.Archive
+    HomeTopLevelDestination.BROADCAST -> HomeDestination.Broadcast
     HomeTopLevelDestination.WHATS_NEW -> HomeDestination.WhatsNew
     HomeTopLevelDestination.CELLS -> HomeDestination.Cells
     HomeTopLevelDestination.MEETINGS -> HomeDestination.Meetings

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="broadcast_screen_title">Utskick</string>
+    <string name="broadcast_message_label">Meddelande</string>
+    <string name="broadcast_delay_label">Paus mellan meddelanden: %1$d s</string>
+    <string name="broadcast_search_label">Sök kontakter</string>
+    <string name="broadcast_select_all">Markera alla</string>
+    <string name="broadcast_select_none">Avmarkera alla</string>
+    <string name="broadcast_selected_count">%1$d av %2$d valda</string>
+    <string name="broadcast_send">Skicka</string>
+    <string name="broadcast_cancel">Avbryt</string>
+    <string name="broadcast_stop">Stoppa</string>
+    <string name="broadcast_ok">OK</string>
+    <string name="broadcast_send_to">Skicka till %1$d</string>
+    <string name="broadcast_confirm_title">Skicka utskick?</string>
+    <string name="broadcast_done">Klart: %1$d skickade, %2$d misslyckades</string>
+    <string name="broadcast_stopped">Stoppat: %1$d skickade, %2$d misslyckades av %3$d</string>
+    <plurals name="broadcast_confirm_text">
+        <item quantity="one">Meddelandet skickas till %1$d person.</item>
+        <item quantity="other">Meddelandet skickas till %1$d personer, ett i taget. Håll appen öppen tills det är klart.</item>
+    </plurals>
+    <plurals name="broadcast_status_minutes">
+        <item quantity="one">%1$d/%2$d - %3$d minut återstår</item>
+        <item quantity="other">%1$d/%2$d - %3$d minuter återstår</item>
+    </plurals>
+    <plurals name="broadcast_status_seconds">
+        <item quantity="one">%1$d/%2$d - %3$d sekund återstår</item>
+        <item quantity="other">%1$d/%2$d - %3$d sekunder återstår</item>
+    </plurals>
+</resources>

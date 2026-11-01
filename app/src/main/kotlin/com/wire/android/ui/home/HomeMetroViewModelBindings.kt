@@ -15,6 +15,7 @@ import com.wire.android.ui.home.conversationslist.ConversationListViewModelImpl
 import com.wire.android.ui.home.conversationslist.model.ConversationsSource
 import com.wire.android.ui.home.drawer.HomeDrawerViewModel
 import com.wire.android.ui.home.newconversation.NewConversationViewModel
+import com.wire.android.ui.home.broadcast.BroadcastViewModel
 import com.wire.android.ui.home.sync.FeatureFlagNotificationViewModel
 import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.IntoMap
@@ -45,6 +46,11 @@ object HomeMetroViewModelBindings {
     @IntoMap
     @ViewModelKey(HomeDrawerViewModel::class)
     fun homeDrawerViewModel(viewModel: HomeDrawerViewModel): ViewModel = viewModel
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(BroadcastViewModel::class)
+    fun broadcastViewModel(viewModel: BroadcastViewModel): ViewModel = viewModel
 
     @Provides
     @IntoMap
