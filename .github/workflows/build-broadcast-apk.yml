@@ -6,7 +6,7 @@ on:
     branches: [ broadcast-apk ]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -51,3 +51,14 @@ jobs:
           name: wire-broadcast-apk
           path: out/*.apk
           if-no-files-found: error
+
+      - name: Publish APK as a release (direct download, no zip)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp out/*.apk wire-broadcast.apk
+          gh release delete broadcast-latest --yes --cleanup-tag || true
+          gh release create broadcast-latest wire-broadcast.apk \
+            --title "Wire Broadcast APK" \
+            --notes "Dev debug build with the Broadcast screen." \
+            --target "${GITHUB_SHA}"
