@@ -36,8 +36,8 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build debug APK (dev flavor)
-        run: ./gradlew assembleDevDebug --no-daemon --stacktrace
+      - name: Build debug APK (alpha flavor, production backend)
+        run: ./gradlew assembleAlphaDebug --no-daemon --stacktrace
 
       - name: Collect APK
         run: |
