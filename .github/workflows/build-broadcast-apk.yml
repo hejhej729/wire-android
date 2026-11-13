@@ -36,8 +36,34 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build debug APK (alpha flavor, production backend)
-        run: ./gradlew assembleAlphaDebug --no-daemon --stacktrace
+      - name: Restore signing key (created on first run, reused afterwards)
+        id: keycache
+        uses: actions/cache@v4
+        with:
+          path: ~/.broadcast-keys
+          key: broadcast-signing-key-v1
+
+      - name: Create signing key if none exists yet
+        if: steps.keycache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/.broadcast-keys
+          PW=$(openssl rand -hex 24)
+          echo -n "$PW" > ~/.broadcast-keys/password.txt
+          keytool -genkeypair -keystore ~/.broadcast-keys/broadcast.p12 -storetype PKCS12 \
+            -alias broadcast -keyalg RSA -keysize 4096 -validity 10000 \
+            -storepass "$PW" -keypass "$PW" -dname "CN=Wire Broadcast personal build"
+
+      - name: Build release APK (alpha flavor, production backend, optimized)
+        run: |
+          export KEYSTORE_PWD="$(cat ~/.broadcast-keys/password.txt)"
+          export ENABLE_SIGNING=TRUE
+          for t in RELEASE DEBUG COMPAT COMPAT_RELEASE; do
+            export "KEYSTORE_FILE_PATH_$t=$HOME/.broadcast-keys/broadcast.p12"
+            export "KEYSTOREPWD_$t=$KEYSTORE_PWD"
+            export "KEYSTORE_KEY_NAME_$t=broadcast"
+            export "KEYPWD_$t=$KEYSTORE_PWD"
+          done
+          ./gradlew assembleAlphaRelease --no-daemon --stacktrace
 
       - name: Collect APK
         run: |
