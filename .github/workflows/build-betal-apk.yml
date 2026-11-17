@@ -8,12 +8,31 @@ on:
         default: "43200"
   push:
     branches: [ betalversion ]
+  schedule:
+    # Twice a week: keeps the signing keys in GitHub's cache alive (they are deleted after 7 days unused).
+    - cron: "17 5 * * 1,4"
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Touch the betal signing key cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.betal-keys
+          key: betal-signing-key-v1
+      - name: Ask the personal build to touch its signing key cache too
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build-broadcast-apk.yml --ref broadcast-apk -f keepalive=true -R "$GITHUB_REPOSITORY" || true
+
   build:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:

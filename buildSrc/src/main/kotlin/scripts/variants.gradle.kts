@@ -43,7 +43,7 @@ fun NamedDomainObjectContainer<ApplicationProductFlavor>.createAppFlavour(
         applicationId = flavorApplicationId + idSuffix
         versionNameSuffix = flavour.versionNameSuffix
         resValue("string", "app_name", System.getenv("BROADCAST_APP_NAME") ?: flavour.appName)
-        manifestPlaceholders["sharedUserId"] = sharedUserId + idSuffix
+        manifestPlaceholders["sharedUserId"] = if (sharedUserId.isBlank()) sharedUserId else sharedUserId + idSuffix
         manifestPlaceholders["appAuthRedirectScheme"] = flavorApplicationId + idSuffix
     }
 }
