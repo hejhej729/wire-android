@@ -1,0 +1,1205 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+        <title>ADR Viewer - wire-android</title>
+
+        <style type="text/css">
+            body {
+                display: grid;
+                width: auto;
+                height: auto;
+                align-items: center;
+                justify-items: center;
+                grid-template-rows: 2fr minmax(80%, auto) 2fr;
+            }
+
+            @media only screen and (min-width: 1025px) {
+                body {
+                    grid-template-columns: 1fr 3fr 1fr;
+                }
+
+                header, .panel-group, footer {
+                    grid-column: 2;
+                }
+            }
+
+            .panel-group {
+                width: 100%
+            }
+
+            .panel-heading.adr-accepted {
+                background-color: lightgreen;
+            }
+
+            .panel-heading.adr-superseded {
+                background-color: lightgrey;
+            }
+
+            .panel-heading.adr-amended {
+                background-color: yellow;
+            }
+
+            .panel-heading.adr-unknown {
+                background-color: white;
+            }
+
+            .panel-heading.adr-pending {
+                background-color: lightblue;
+            }
+
+            .adr-superseded > .panel-title > a {
+                text-decoration: line-through;
+            }
+
+            .adr-icon {
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>ADR Viewer - wire-android</h1>
+        </header>
+        <div class="panel-group">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-unknown">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse0">Decision record template by Michael Nygard</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-question"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse0" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>Decision record template by Michael Nygard</h1>
+<p>This is the template in <a href="http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions">Documenting architecture decisions - Michael Nygard</a>.
+You can use <a href="https://github.com/npryce/adr-tools">adr-tools</a> for managing the ADR files.</p>
+<p>In each ADR file, write these sections:</p>
+<h1>Title</h1>
+<h2>Status</h2>
+<p>What is the status, such as proposed, accepted, rejected, deprecated, superseded, etc.?</p>
+<h2>Context</h2>
+<p>What is the issue that we're seeing that is motivating this decision or change?</p>
+<h2>Decision</h2>
+<p>What is the change that we're proposing and/or doing?</p>
+<h2>Consequences</h2>
+<p>What becomes easier or more difficult to do because of this change?</p>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">1. Record architecture decisions</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>1. Record architecture decisions</h1>
+<p>Date: 2024-08-05</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>We agreed in the past to use ADR's, but we lost track of it as we were using confluence to keep
+them. This concern was raised in the last collective, and we need to decide how to proceed.</p>
+<h2>Decision</h2>
+<p>We will use Architecture Decision Records in the code and as part of the review process.
+We will use the <a href="0000-template-lightway-adr.md">Lightway ADR template</a> to keep the ADRs simple and
+easy to maintain.</p>
+<h2>Consequences</h2>
+<ul>
+<li>We need to add a new folder to the repository, <code>docs/adr</code>, to keep the architecture decision
+records.</li>
+<li>Whenever a new refactoring or library is introduced, a new ADR should be created.</li>
+<li>You can always request in the Pull request review process to add a new ADR, if you think it's
+necessary.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">2. Calling activity refactor</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>2. Calling activity refactor</h1>
+<p>Date: 2024-08-01</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>To support a second incoming call we need to refactor the code so we can handle the ongoing content
+context, without losing the current context.</p>
+<p>This is a retroactive decision record implemented
+on https://github.com/wireapp/wire-android/pull/3264</p>
+<h2>Decision</h2>
+<p>Create 2 separate activities, one for the Incoming/Outgoing calls and another for the ongoing call.
+In this way, we can keep the context of the ongoing call and handle the incoming/outgoing calls.</p>
+<p>The design and interaction will look like this:</p>
+<p>&lt;img src=&quot;https://github.com/user-attachments/assets/66f19cce-c2bc-4777-a0eb-b5cda035df8a&quot;/&gt;</p>
+<h2>Consequences</h2>
+<ul>
+<li>StartingActivity will handle Incoming and Outgoing calls content, these contents are disposable
+and can be recreated when receiving a new call.</li>
+<li>OngoingCallActivity will handle the ongoing call content, this content is not disposable and
+should be kept during the call.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">3. Use parameterizable tests in JUnit5</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>3. Use parameterizable tests in JUnit5</h1>
+<p>Date: 2024-08-05</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Sometimes we need to write multiple tests for the same scenario, changing only the input values.</p>
+<h2>Decision</h2>
+<p>We will use parameterizable tests in JUnit5 to avoid writing multiple tests for the same scenario.</p>
+<h2>Consequences</h2>
+<ul>
+<li>Introduction of <code>@ParameterizedTest</code> annotation in the test class
+and <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">library</a>.</li>
+<li>The test method will receive the parameters as arguments.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">4. Deeplink handling refactor</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>4. Deeplink handling refactor</h1>
+<p>Date: 2024-09-06</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>The existing implementation of deeplink handling within our ViewModel is characterized by complex,
+bulky logic that makes maintenance and scalability challenging. Current handling involves redundant
+checks for each deeplink type and duplicated error logging. Additionally, the logic to handle toast
+errors for deeplinks requiring authorization and the management of user session state during calls
+(to prevent account switching) are not centralized, leading to repeated code and scattered handling
+across components.</p>
+<h2>Decision</h2>
+<p>We have decided to refactor the existing handleDeepLink function in the ViewModel by consolidating
+the URI deeplink processing logic into a dedicated class, DeepLinkProcessor. This class will now
+centralize the interpretation and validation of deeplinks, and manage user session states more
+effectively, including checks for ongoing calls before allowing account switches. The
+DeepLinkProcessor will handle:</p>
+<ul>
+<li>Duplicate checks and error logging by centralizing deeplink type verification.</li>
+<li>Displaying toast errors when deeplink operations require user authorization and preventing
+operations during calls.</li>
+<li>Secure and condition-based account switching.</li>
+</ul>
+<h2>Consequences</h2>
+<ol>
+<li><p>Reduced Duplication: Centralizing deeplink handling reduces duplicated logic across the
+application, especially for checking deeplink types and logging errors, ensuring a cleaner
+codebase.</p>
+</li>
+<li><p>Centralized Authorization Management: Toast messages to inform users about the need for
+authorization if they attempt to access resources that require authentication are managed
+centrally, enhancing user experience and security.</p>
+</li>
+<li><p>Enhanced Call State Management: The new implementation prevents account switching during active
+calls by checking the user's call status directly within DeepLinkProcessor. This is vital for
+maintaining session integrity and user experience.</p>
+</li>
+<li><p>Improved Error Handling: By centralizing error handling and response mechanisms, the application
+can more effectively manage and respond to deeplink processing errors, providing a more robust
+and fault-tolerant system.</p>
+</li>
+<li><p>Streamlined Testing and Maintenance: With deeplink logic isolated in a single class, testing
+becomes more focused and efficient, allowing for targeted testing strategies and easier
+maintenance.</p>
+</li>
+</ol>
+<p>This decision involves careful re-engineering of the deeplink processing mechanisms to ensure
+compatibility and functionality across all current and potential future deeplink scenarios,
+requiring comprehensive testing and validation to ensure seamless integration.</p>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse5">5. Conversation list composables refactor</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>5. Conversation list composables refactor</h1>
+<p>Date: 2024-10-01</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Conversation-list-related composables and screens (all conversations, archive) are overly
+complicated and have many leftovers after bottom tabs and multiple refactors,
+so in order to implement pagination, it's better to make a cleanup first.</p>
+<h2>Decision</h2>
+<p>Simplify and unify composables related to creating screens that show conversation lists.
+Remove old, unused code, like things that were implemented in order to make the bottom tabs or code
+leftover from previous refactors, and update to make it more readable, reusable and maintainable.
+Make it more similar to what we have in other places - instead of having complicated &quot;routers&quot; or
+&quot;bridges&quot;, just create &quot;content&quot; composable that can be used on multiple screens,
+but with the intention that common <code>ViewModel</code>s are incorporated into this content composable,
+so that they do not have to be added each time, but make it possible to generate previews.
+Also, make use of <code>AssistedInject</code> to reduce the number of functions and <code>LaunchedEffect</code>s needed.</p>
+<h2>Consequences</h2>
+<ul>
+<li><code>ConversationRouterHomeBridge</code> is now replaced with simpler <code>ConversationsScreenContent</code>,
+which is a single composable to be used to create multiple screens that show conversation lists.</li>
+<li><code>ConversationListViewModel</code> uses <code>AssistedInject</code> to provide <code>ConversationsSource</code> and a <code>Flow</code>
+of search query <code>String</code>s directly in constructor instead of doing it using multiple functions.</li>
+<li><code>ConversationListViewModel</code> and <code>ConversationCallListViewModel</code> are injected using unique keys,
+so that for each <code>ConversationsSource</code> there is a separate <code>ViewModel</code>. Thanks to that, together
+with assisted injection, they are now dedicated to each type which makes it easier to maintain,
+debug and even use on the same screen if needed.</li>
+<li>Both mentioned <code>ViewModel</code>s are now also interfaces that are implemented by the respective
+<code>ConversationListViewModelImpl</code> and <code>ConversationCallListViewModelImpl</code> and &quot;preview&quot; versions
+of these interfaces are also created to make it possible to generate composable previews.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse6">6. Simplified enterprise login</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>6. Simplified enterprise login</h1>
+<p>Date: 2025-01-23</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Starting (potentially) from Android 4.12.x the app will support the new enterprise login flows, this means in practice that the app needs to support both flows current/old.</p>
+<h3>The current flow (old)</h3>
+<p>Customers configure their setup manually in their backend.
+The user experience for this makes the user selects manually which flow they must use by going to the correct screens, i.e. going to the tab and select login with SSO code, or login with email, or use a deeplink to load the on premise configuration, and then select the correct flow.</p>
+<h3>The new flow</h3>
+<p>Customers, via team settings and Back-office tools, will be able to load this config to facilitate the decision of which flow the user must use. This will make the app, in conjunction with the backend, decide for the user which path/flow they must use to login by just having one input field, “email or SSO code”.
+The adoption won’t be automatically via deprecation, hence the need to support both flows for some time. To clarify a bit how this looks in practice for the code we have, how this will be implemented, a high level look of the two flows living together, the following diagram can be used.</p>
+<h2>Decision</h2>
+<p>We will keep both flows, the current as-is and the new one, being the app able to decide which one to use based on the configuration received from the backend.</p>
+<pre><code class="language-mermaid">%%{
+  init: {
+    'theme': 'neutral'
+  }
+}%%
+
+flowchart LR
+    z((App loads&lt;/br&gt; BE/API context)) --&gt; di
+    di{BE supports &lt;/br&gt;API &gt;= 8 ?}:::someclass -- Yes --&gt; a1
+    di -- No&lt;/br&gt;OR Authenticated Proxy --&gt; b1
+    classDef someclass fill:#f96
+    subgraph new_flow
+      a0@{ shape: braces, label: &quot;These flows are selected by the app and the BE&quot; }
+      a1[StartLoginScreen &lt;/br&gt;'Enter email or SSO code'] -- looks like SSO code --&gt; a2[Go to SSO flow path 6-7] 
+      a1 -- Looks like an email? --&gt; a3[BE replies which path to go 1-4]
+    end
+    subgraph current_flow
+      b0@{ shape: braces, label: &quot;These flows are selected manually by the user&quot; }
+      b1[WelcomeScreen] --&gt; b2[LoginEmailScreen]
+      b1 --&gt; b3[LoginWithSSOCodeScreen]
+    end
+</code></pre>
+<h2>Consequences</h2>
+<ul>
+<li>The code base will have some duplication for some time, but this will be removed when the old flow is deprecated.</li>
+<li>To select the correct flow, the app will need to load the BE context, based on the API version, and then decide which flow to use.</li>
+<li>The navigation, entry point will need to be dynamic, based on the flow selected.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse7">7. Introducing UIAutomator for integrated testing</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>7. Introducing UIAutomator for integrated testing</h1>
+<p>Date: 2025-05-06</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>QA wants to migrate from Appium to a new framework to run tests and being closed to the source code that we are testing.
+The tests nowadays are running on an emulator with an apk. After meeting the QA we evaluated options, Espresso and UIAutomator.</p>
+<h2>Decision</h2>
+<p>UIAutomator seems to be the best option for us, as it is a framework that is already in the Android SDK and it is more flexible than Espresso, this last one is more limited to the app under test because of mocks and stubs.
+We will create a new module(s) for testing purposes, and we will use the UIAutomator framework to run the tests, common logic can be extracted and shared between tests modules in case we want to parallelize the tests in the future.</p>
+<h2>Consequences</h2>
+<p>The new structure of the project will be as follows:</p>
+<pre><code>wire-android
+├── app
+│   ├── ...
+├── core
+│   ├── ...
+├── features
+│   ├── ...
+├── tests
+│   ├── ...
+│   ├── testsCore
+│   ├── testsSupport
+└── build.gradle.kts
+</code></pre>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse8">8. Introducing Enterprise Mobility Management (EMM) Capabilities</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>8. Introducing Enterprise Mobility Management (EMM) Capabilities</h1>
+<p>Date: 2025-10-15</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>As a requirement for some of our business cases, we need to introduce Enterprise Mobility Management (EMM) capabilities into our Android application. EMM solutions help organizations manage and secure mobile devices, applications, and data.
+To implement EMM capabilities, we want to add support for the following features:</p>
+<ul>
+<li>Backend setup using managed configurations, the ability for the app to connect by default to a specific backend.</li>
+<li>SSO Capabilities, allowing users to authenticate with a default sso code configuration.</li>
+</ul>
+<h2>Decision</h2>
+<p>This was implemented by following the guidelines provided by Google for adding EMM capabilities to Android applications. The steps taken were:</p>
+<ol>
+<li><strong>Manifest Changes</strong>: Updated the AndroidManifest.xml to include the necessary permissions and metadata</li>
+<li><strong>Managed Configurations</strong>: Implemented support for managed configurations to allow IT administrators to configure the app remotely.</li>
+<li><strong>SSO Integration</strong>: Integrated SSO capabilities to allow seamless authentication for users within an enterprise environment.</li>
+<li><strong>Testing</strong>: Conducted thorough testing to ensure that the EMM features work as</li>
+</ol>
+<h2>Consequences</h2>
+<ul>
+<li>The app now support EMM capabilities, by making use of <code>RestrictionsManager</code> component to retrieve managed configurations and apply them accordingly.</li>
+<li>The app reads the managed configurations and applies them to set the default backend and SSO settings.</li>
+<li>The app resolves using DI the backend and SSO settings from the managed configurations if available, otherwise it falls back to the app default settings.</li>
+</ul>
+<pre><code class="language-mermaid">---
+config:
+layout: dagre
+theme: neutral
+---
+flowchart TD
+A([&quot;App Start&quot;]) --&gt; B[&quot;ManagedConfigurationsManager&quot;]
+B --&gt; C{&quot;Managed Configurations Available?&quot;}
+C -- Yes --&gt; D[&quot;Retrieve Managed Configs&quot;]
+D --&gt; E{&quot;Valid Configuration?&quot;}
+E -- Yes --&gt; F[&quot;Use as DI Defaults&quot;]
+E -- No/Error --&gt; G[&quot;Load default.json&quot;]
+C -- No --&gt; G
+G --&gt; H[&quot;Use App Defaults via DI&quot;]
+P([&quot;App Resume&quot;]) --&gt; B
+R([&quot;Broadcast Receiver Triggered&quot;]) --&gt; L[&quot;ManagedConfigurationReceiver&quot;]
+L --&gt; B
+F --&gt; J[&quot;ViewModels Inject non scoped values from ManagedConfigurationsManager&quot;]
+H --&gt; J
+J@{ shape: card}
+style A fill:#C8E6C9
+style B fill:#BBDEFB
+style P fill:#C8E6C9
+style R fill:#C8E6C9
+style J fill:#BBDEFB
+</code></pre>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse9">9. Automated Release Notes Management for Play Store Deployments</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>9. Automated Release Notes Management for Play Store Deployments</h1>
+<p>Date: 2025-11-07</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Previously, managing release notes for Play Store deployments was a manual and error-prone process. The workflow lacked automation for:</p>
+<ul>
+<li>Validating that version-specific release notes exist before deployment</li>
+<li>Ensuring release notes comply with Play Store's 500 character limit</li>
+<li>Copying version-specific release notes to the default.txt files required for deployment</li>
+<li>Providing clear feedback about which release notes will be published</li>
+</ul>
+<p>This manual process increased the risk of deploying with incorrect or missing release notes, and made it difficult to catch validation errors early in the CI/CD pipeline.</p>
+<h2>Decision</h2>
+<p>We introduced an automated release notes preparation script (<code>scripts/release/prepare-release-notes.sh</code>) that is integrated into our CI/CD workflows. The script:</p>
+<ol>
+<li><strong>Extracts the current version</strong> from <code>AndroidCoordinates.kt</code> to determine which release notes to use</li>
+<li><strong>Validates version-specific files exist</strong> - fails the build if <code>app/src/main/play/release-notes/{lang}/{version}.txt</code> files are missing</li>
+<li><strong>Copies version files to default.txt</strong> - automatically prepares the files needed for Play Store deployment</li>
+<li><strong>Validates character counts</strong> - ensures release notes don't exceed Play Store's 500 character limit</li>
+<li><strong>Provides preview</strong> - displays the exact release notes that will be deployed</li>
+</ol>
+<p>The script is integrated into:</p>
+<ul>
+<li><code>build-production.yml</code> workflow for production releases</li>
+<li><code>build-main-push.yml</code> workflow for main branch deployments</li>
+<li><code>build-develop-push.yml</code> workflow for develop branch deployments</li>
+<li><code>deploy.yml</code> workflow for general deployments</li>
+</ul>
+<h2>Consequences</h2>
+<p><strong>Positive:</strong></p>
+<ul>
+<li>Release notes validation happens early in CI/CD, preventing deployment of apps with missing or invalid release notes</li>
+<li>Character limit validation prevents Play Store submission failures</li>
+<li>Automated copying eliminates manual file management errors</li>
+<li>Clear preview output ensures visibility into what will be deployed</li>
+<li>Version-specific release notes files create a historical record of all releases</li>
+<li>Consistent process across all deployment workflows</li>
+</ul>
+<p><strong>Considerations:</strong></p>
+<ul>
+<li>Release notes must be created as version-specific files (e.g., <code>4.16.0.txt</code>) before deployment</li>
+<li>The script requires Python 3 for character counting functionality</li>
+<li>Failed validation blocks the entire CI/CD pipeline (by design, to prevent bad deployments)</li>
+<li>Changes to version naming in <code>AndroidCoordinates.kt</code> must be reflected in release notes file naming</li>
+</ul>
+<p><strong>File Structure:</strong></p>
+<pre><code>app/src/main/play/release-notes/
+├── en-US/
+│   ├── 4.16.0.txt    (version-specific)
+│   └── default.txt   (auto-generated)
+└── de-DE/
+    ├── 4.16.0.txt    (version-specific)
+    └── default.txt   (auto-generated)
+</code></pre>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse10">10. Tablet dialog navigation parity after Compose Destinations upgrade</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>10. Tablet dialog navigation parity after Compose Destinations upgrade</h1>
+<p>Date: 2026-02-06</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Before the Kotlin/navigation migration (commit <code>18a563754</code>), the app used <code>DestinationStyle.Runtime</code> and <code>AdjustDestinationStylesForTablets()</code> to switch 17 destinations at runtime:</p>
+<ul>
+<li>tablet -&gt; <code>DialogNavigation</code></li>
+<li>phone -&gt; <code>SlideNavigationAnimation</code> or <code>PopUpNavigationAnimation</code></li>
+</ul>
+<p>After the migration, generated destination styles became immutable (<code>val style</code>), so mutating <code>Destination.style</code> at runtime was no longer possible. This caused tablet screens to be shown as phone-style transitions, and not as true dialogs.</p>
+<p>We also need to preserve:</p>
+<ul>
+<li>true dialog presentation semantics on tablet (not only animation changes)</li>
+<li>existing phone behavior for the same destinations</li>
+<li>one source of truth for the target destinations</li>
+</ul>
+<h2>Decision</h2>
+<p>We introduced an app-level nav host engine wrapper and centralized route policy:</p>
+<ol>
+<li><code>WireNavHostEngine</code> (app module) mirrors default Compose Destinations engine behavior.</li>
+<li>For each destination registration, style is resolved by <code>resolveTabletDialogParityStyle(...)</code>:<ul>
+<li>if tablet + route is in parity list -&gt; force <code>DialogNavigation</code></li>
+<li>otherwise -&gt; keep existing behavior (<code>manualAnimation ?: destination.style</code>)</li>
+</ul>
+</li>
+<li>The parity list of 17 routes is defined in <code>TabletDialogRoutePolicy</code>.</li>
+<li><code>TabletDialogWrapper</code> receives the same route matcher and applies rounded clipping for tablet parity routes as well, so visual corners match dialog expectations.</li>
+</ol>
+<p>Implementation files:</p>
+<ul>
+<li><code>app/src/main/kotlin/com/wire/android/navigation/WireNavHostEngine.kt</code></li>
+<li><code>app/src/main/kotlin/com/wire/android/navigation/TabletDialogRoutePolicy.kt</code></li>
+<li><code>core/navigation/src/main/kotlin/com/wire/android/navigation/wrapper/TabletDialogWrapper.kt</code></li>
+</ul>
+<p>Both app nav hosts use <code>rememberWireNavHostEngine(...)</code>:</p>
+<ul>
+<li><code>MainNavHost</code></li>
+<li>nested host in <code>HomeScreen</code></li>
+</ul>
+<h2>Consequences</h2>
+<h3>Positive</h3>
+<ul>
+<li>Restores pre-migration tablet behavior for the 17 destinations as true dialogs.</li>
+<li>Preserves phone behavior without changing navigation call sites.</li>
+<li>Keeps route ownership centralized, making future additions/removals explicit.</li>
+<li>Keeps compatibility with Compose Destinations <code>2.3.x</code> immutable destination style generation.</li>
+</ul>
+<h3>Trade-offs</h3>
+<ul>
+<li>We maintain a small custom engine implementation that mirrors upstream behavior and should be kept in sync when upgrading Compose Destinations.</li>
+<li>Wrapper clipping now depends on an injected route matcher, which is another integration point to keep aligned with route policy.</li>
+</ul>
+<h3>Maintenance rules</h3>
+<p>When adding/removing tablet dialog parity screens:</p>
+<ol>
+<li>Update <code>TabletDialogRoutePolicy.destinationBaseRoutes</code>.</li>
+<li>Add/update tests in <code>TabletDialogRoutePolicyTest</code>.</li>
+<li>Verify both tablet and phone behavior manually.</li>
+</ol>
+<p>When upgrading Compose Destinations:</p>
+<ol>
+<li>Diff upstream default engine behavior against <code>WireNavHostEngine</code>.</li>
+<li>Re-validate style resolution and manual animation precedence.</li>
+</ol>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse11">11. Centralized UIAutomator Wait Helpers for Test Modules</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>11. Centralized UIAutomator Wait Helpers for Test Modules</h1>
+<p>Date: 2026-04-23</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>The <code>:tests:testsCore</code> and <code>:tests:testsSupport</code> modules had duplicated synchronization logic:</p>
+<ul>
+<li>manual polling loops</li>
+<li>ad-hoc sleeps</li>
+<li>repeated &quot;wait until visible/gone&quot; patterns</li>
+<li>repeated stale-object retry logic</li>
+</ul>
+<p>This duplication made tests harder to maintain and increased the risk of inconsistent behavior and flaky waits across page objects and critical flows.</p>
+<h2>Decision</h2>
+<p>We centralize reusable wait/select/retry behavior in <code>:tests:testsSupport</code> under <code>uiautomatorutils.UiWaitUtils</code>, and we migrate <code>:tests:testsCore</code> callers to use those helpers.</p>
+<p>The shared helper surface includes:</p>
+<ul>
+<li><code>retryUntilTimeout(...)</code></li>
+<li><code>waitUntilVisibleOrThrow(...)</code></li>
+<li><code>waitUntilGoneOrThrow(...)</code> for <code>BySelector</code> and <code>UiSelector</code></li>
+<li><code>waitAnyVisible(...)</code></li>
+<li><code>clickWhenClickable(...)</code></li>
+</ul>
+<p>Compatibility wrappers remain available (<code>waitUntilVisible</code>, <code>waitUntilElementGone</code>, <code>waitElement</code>) and are internally aligned with the same reusable primitives.</p>
+<h2>Consequences</h2>
+<p>Positive:</p>
+<ul>
+<li>less duplicated synchronization logic in <code>:tests:testsCore</code></li>
+<li>more consistent wait behavior and error handling across tests</li>
+<li>simpler future refactors (for example Kotlin Duration migration in follow-up work)</li>
+</ul>
+<p>Trade-offs:</p>
+<ul>
+<li><code>UiWaitUtils</code> becomes the main synchronization entrypoint and must be kept well documented</li>
+<li>helper behavior changes can affect many tests at once, so updates require targeted regression checks</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse12">12. Centralized Make Command Surface for Repo Automation</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse12" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>12. Centralized Make Command Surface for Repo Automation</h1>
+<p>Date: 2026-07-23</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Automation in the Android repository was spread across GitHub Actions workflow steps, root-level shell scripts, Python helpers, Gradle tasks, and a small <code>Makefile</code>. This made it harder to discover the correct command for local use, harder to keep CI and local workflows aligned, and easier for new scripts to accumulate without clear ownership.</p>
+<p>The project already depends on a Unix-like build environment for Android development and CI, so <code>make</code> is available without introducing another developer tool dependency.</p>
+<h2>Decision</h2>
+<p>We will use the root <code>Makefile</code> as the stable command surface for repository automation. The root <code>Makefile</code> imports purpose-specific fragments under <code>make/</code>, while implementation scripts live in purpose-based directories:</p>
+<ul>
+<li><code>scripts/release/</code> for release-note and release-preparation helpers</li>
+<li><code>scripts/qa/android-ui/</code> for Android UI test and deflake orchestration</li>
+<li><code>scripts/dev/</code> for local developer utilities</li>
+<li><code>scripts/signing/</code> for APK signing helpers</li>
+</ul>
+<p>Gradle remains the owner of build logic. Make targets should call Gradle or scripts rather than reimplementing substantial logic inline.</p>
+<p>CI workflows should call <code>make</code> targets for repo-owned commands when a target exists. Workflows should continue to own runner setup, checkout, caching, artifact upload, cloud credentials, deployment actions, and other platform orchestration.</p>
+<h2>Consequences</h2>
+<p><strong>Positive:</strong></p>
+<ul>
+<li>Developers and CI share a clearer command vocabulary.</li>
+<li>Existing shell and Python helpers are grouped by purpose instead of accumulating at the root of <code>scripts/</code>.</li>
+<li>Workflow files contain fewer direct Gradle and script invocations.</li>
+<li>New automation has an obvious place to live and an obvious command surface to expose.</li>
+<li>No new developer dependency is introduced.</li>
+</ul>
+<p><strong>Considerations:</strong></p>
+<ul>
+<li>Make targets must stay thin. Large shell blocks in Makefiles would recreate the same scripting problem in a different file.</li>
+<li>When adding a new script, contributors should place it in the appropriate purpose directory and expose it through <code>make</code> only when it is a useful local or CI entrypoint.</li>
+<li>CI-only platform setup should remain in GitHub Actions workflows or composite actions.</li>
+<li>Build-native behavior should still become Gradle tasks when it belongs to the build graph.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-pending">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse13">13. Shared in-app video player as a core module</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-hourglass-half"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse13" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>13. Shared in-app video player as a core module</h1>
+<p>Date: 2026-07-16</p>
+<h2>Status</h2>
+<p>Proposed</p>
+<h2>Context</h2>
+<p>The in-app video player (<code>VideoPlayerScreen</code>, <code>VideoPlayerViewModel</code>, <code>VideoPlaybackState</code>,
+<code>VideoViewerNavArgs</code>) currently lives in <code>features:cells</code> and is reachable only from the cells file
+browser. It is a self-contained, reusable UI component: it takes a local path / content URL and plays
+it via ExoPlayer — it holds no domain logic of its own (assets, download and offline handling already
+live in Kalium and in the calling features).</p>
+<p>We now want to play videos <strong>in-app when a user taps a video message in a chat</strong>. Today the chat
+(which lives in the <code>app</code> module, <code>ui/home/conversations/…</code>) hands videos off to an external app via
+an <code>ACTION_VIEW</code> intent. Reusing the existing player would give a consistent, in-app experience.</p>
+<p>The player therefore needs to be consumed by two places: <code>features:cells</code> and <code>app</code> (chat). The
+project's dependency law is <code>kalium → core → features → app</code>, with the additional rule that features
+must not depend on other features — shared logic goes into <code>core:*</code> or Kalium. That rules out the two
+shortcuts:</p>
+<ul>
+<li>Keeping it in <code>features:cells</code> and calling it from chat couples the entire &quot;Wire Cells file storage
+and collaboration&quot; feature to chat, and the screen is bound to the cells navigation graph via
+<code>@WireCellsDestination</code>.</li>
+<li>Creating a <code>features:video-player</code> module is illegal to consume from <code>features:cells</code> (feature →
+feature dependencies are forbidden).</li>
+</ul>
+<p>Because the player is shared UI infrastructure used by multiple layers above <code>core</code>, its correct home
+is a <code>core</code> module.</p>
+<h2>Decision</h2>
+<p>Extract the video player into a new <strong><code>core:video-player</code></strong> module and consume it from both
+<code>features:cells</code> and <code>app</code>.</p>
+<p>A new dedicated core module is preferred over folding it into the existing <code>core:media</code> module so that
+the heavy media dependencies (<code>media3-exoplayer</code>, <code>media3-ui</code>, <code>coil3-video</code>) stay scoped to modules
+that actually play video, rather than leaking to everything that already depends on <code>core:media</code>
+(currently only <code>PingRinger</code>). The new module can later become the home for the other in-app media
+viewers (image viewer, media gallery) if we choose to consolidate them.</p>
+<p>The two pieces that are currently cells-specific will be generalized during the move:</p>
+<ul>
+<li><strong>Navigation:</strong> replace <code>@WireCellsDestination</code> with a single shared destination registered through
+<code>core:navigation</code>, so the player is navigable from any feature/app graph rather than only the cells
+graph.</li>
+<li><strong>Dependency injection:</strong> move the Metro wiring out of <code>CellsViewModelFactory</code> so <code>core:video-player</code>
+provides its own <code>VideoPlayerViewModel</code>.</li>
+</ul>
+<p>The work is sequenced extract-then-reuse, so the risky refactor is validated against the existing
+caller before chat depends on it:</p>
+<ol>
+<li>Create <code>core:video-player</code> and move the player files into it, generalizing navigation and DI. No
+user-facing behavior change.</li>
+<li>Migrate <code>features:cells</code> to navigate to the shared destination and delete its copy of the player.
+This proves parity with the existing flow.</li>
+<li>Wire chat in <code>app</code>: on tapping a video message, navigate to the shared destination (passing the
+already-resolved local path / content URL) instead of firing the external <code>ACTION_VIEW</code> intent.</li>
+</ol>
+<h2>Consequences</h2>
+<ul>
+<li>A new module <code>core:video-player</code> is added; it is auto-discovered by <code>settings.gradle.kts</code> and built
+with the <code>wire-android-library</code> convention plugin (copied from an existing core module, not from
+<code>features/template</code>). It may depend on <code>core:ui-common</code>, <code>core:navigation</code>, and <code>core:di</code> — all
+core → core, one-directional, no cycle.</li>
+<li><code>features:cells</code> and <code>app</code> both depend on <code>core:video-player</code>; the <code>kalium → core → features → app</code>
+direction is preserved and no cross-feature dependency is introduced.</li>
+<li>The video player becomes reusable from anywhere, and chat gains an in-app video experience instead
+of delegating to an external app.</li>
+<li>The player's navigation destination is no longer part of the cells graph; callers navigate to the
+shared destination. Any deep links or existing navigation to the cells-scoped destination must be
+updated as part of Phase 2.</li>
+<li>The media3/Coil-video dependencies move to (and are scoped by) the new module.</li>
+<li>Follow-up opportunity (out of scope here): the cells in-app image viewer (<code>CellImageViewerScreen</code>)
+and the app <code>MediaGalleryScreen</code> overlap; <code>core:video-player</code> is a natural future home for a unified
+media viewer, to be handled as a separate ADR/change.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-pending">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse14">14. Migrate to Navigation 3 with KMP-ready navigation contracts</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-hourglass-half"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse14" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>14. Migrate to Navigation 3 with KMP-ready navigation contracts</h1>
+<p>Date: 2026-08-10</p>
+<h2>Status</h2>
+<p>Proposed</p>
+<h2>Context</h2>
+<p>Wire currently uses Compose Destinations on top of Navigation Compose 2. Generated destinations,
+route strings and <code>NavBackStackEntry</code> lookups are used not only for navigation, but also to select
+Metro graphs, recover arguments and decide ViewModel ownership. This makes authentication,
+multi-account switching, logout, process restoration and tablet presentation difficult to reason
+about and has moved navigation recovery logic into <code>WireActivity</code>.</p>
+<p>Navigation state, a Metro graph instance and a ViewModel owner have related, but different,
+lifecycles. Treating them as one mechanism can recreate a ViewModel against the wrong account or
+make an existing screen depend on a temporarily unavailable <code>currentSession</code>.</p>
+<p>Compose Destinations is not the desired long-term navigation layer. Navigation 3 gives Wire an
+application-owned, typed and saveable back stack, explicit entry decorators and a KMP-compatible
+route model.</p>
+<h2>Decision</h2>
+<p>We will replace Compose Destinations with Navigation 3 and Wire-owned navigation contracts.</p>
+<ul>
+<li>Serializable routes and navigation commands live in <code>core:navigation-kmp</code>; concrete routes stay
+with the feature that owns them.</li>
+<li>Features contribute typed <code>wireEntry</code> providers and expose semantic actions instead of receiving
+generated navigators or <code>NavHostController</code>.</li>
+<li>The Home shell aggregates one feature-owned semantic action contract for every interactive
+top-level child. Feature-specific actions are not flattened into the Home contract; roots sharing
+an action surface reuse its contract, and roots without navigation actions expose none.</li>
+<li>A reusable UI action contract is named after its role and omits the framework version, for example
+<code>ConversationListNavigationActions</code> or <code>MeetingsHomeNavigationActions</code>. The <code>Navigation3</code> suffix
+is reserved for contracts coupled to a Navigation 3 entry, runtime or result lifecycle, for example
+<code>ConversationEntryNavigation3Actions</code> or <code>MeetingsNavigation3Actions</code>. Starting a flow belongs to
+the framework-neutral Home-root contract; actions performed inside its entries belong to the
+<code>Navigation3</code> contract.</li>
+<li>Navigation 3 owns back-stack entries and their <code>ViewModelStoreOwner</code> lifecycle.</li>
+<li>Wire resolves the Metro graph independently from the typed route. A session route always carries
+the session identity from which its dependencies must be resolved.</li>
+<li>Metro creates graphs and factories, while an application-owned registry controls the identity,
+retention and disposal of graph instances.</li>
+<li>ViewModels receive route arguments explicitly through assisted factories. <code>SavedStateHandle</code>
+remains for restorable UI state, not as the source of navigation identity.</li>
+<li>Results, deep links, transitions and phone/tablet presentation use typed Wire policies.</li>
+<li><code>WireActivity</code> remains responsible for Android lifecycle and platform entry points; navigation,
+session and intent decisions move to testable coordinators.</li>
+</ul>
+<p>For example, route identity, graph selection and ViewModel ownership are separate:</p>
+<pre><code class="language-kotlin">@Serializable
+data class ConversationRoute(
+    override val sessionId: WireSessionId,
+    val conversationId: ConversationId,
+    override val entryId: WireNavEntryId = WireNavEntryId.random(),
+) : SessionRoute
+
+wireEntry&lt;ConversationRoute&gt; { route -&gt;
+    ConversationScreen(
+        viewModel = conversationViewModel(route.toViewModelArgs()),
+        onBack = actions::back,
+    )
+}
+</code></pre>
+<p><code>sessionId</code> selects the retained Metro session graph. Navigation 3 retains the owner identified by
+the entry while that entry exists. A temporary <code>currentSession == null</code> therefore does not
+reinterpret an existing route, replace its graph or recreate its ViewModel.</p>
+<p>The migration will be delivered incrementally: KMP contracts and runtime foundation, ownership
+and Metro integration, vertical destination migrations, stabilization, and removal of Compose
+Destinations compatibility code.</p>
+<h2>Consequences</h2>
+<p>Navigation becomes typed, application-owned and testable. Existing entries keep deterministic
+ViewModel owners and Metro graphs during account transitions, and KMP clients can reuse route,
+command and reducer contracts.</p>
+<p>The migration temporarily increases the amount of adapter and test code. Wire must explicitly
+implement and verify session transitions, results, deep links, responsive presentation and process
+restoration; Navigation 3 does not provide Wire-specific policy by itself.</p>
+<p>The migration is complete only when one production navigation runtime remains, generated
+navigation references and dependencies are removed, and unit, screenshot, acceptance,
+critical-flow and multi-account tests plus internal playtests are green.</p>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse15">15. Replace logcat-process capture with direct diagnostic file logging</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse15" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>15. Replace logcat-process capture with direct diagnostic file logging</h1>
+<p>Date: 2026-09-02</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>The previous Android diagnostic logger started a <code>logcat</code> process and copied its output into
+<code>wire_logs.txt</code>, with timestamped gzip rolls. That approach depends on device-specific logcat
+availability, permissions and process behavior. It can produce empty diagnostic files on some
+OEM/vendor devices even while the application is running normally, which makes support reports
+unreliable precisely where logs are needed most.</p>
+<p>Application and Kalium diagnostics already flow through Kermit. Writing that stream directly to a
+rolling file avoids relying on the platform logcat process. The direct writer stores
+<code>wire_logs.log</code> and numbered rolls in the same directory, so upgraded installations also need a
+safe transition for existing legacy files.</p>
+<p>The current app packages diagnostic files into a single ZIP archive. This established export
+behavior must be retained while preserving a useful legacy diagnostic snapshot and avoiding data
+loss if migration is interrupted or filesystem operations fail.</p>
+<h2>Decision</h2>
+<p>The app writes Kermit diagnostics directly to a rolling file and does not use a <code>logcat</code> process
+for diagnostic file collection. Application and Kalium log writers feed the same direct writer,
+subject to the existing logging enablement and log-level configuration.</p>
+<p>When direct file logging starts, the app migrates a legacy <code>wire_logs.txt</code> file before opening the
+rolling writer.</p>
+<ul>
+<li>Compress the legacy active file into the deterministic <code>wire_legacy_active.gz</code> through a
+temporary sibling file.</li>
+<li>Validate and finalize the gzip snapshot before deleting the legacy source.</li>
+<li>After a valid snapshot exists, remove only recognized legacy archives and temporary remnants.</li>
+<li>On startup after an interruption, treat a valid snapshot as the committed state and finish
+cleanup without creating another snapshot.</li>
+<li>If compression or finalization fails, retain the legacy source and history, then continue with
+direct logging.</li>
+<li>Delete logs removes recognized legacy files, the retained snapshot, and direct rolling files;
+unrelated files in the directory are preserved.</li>
+<li>Diagnostic sharing remains a single ZIP archive. The snapshot is included naturally as an entry
+alongside current rolling logs.</li>
+</ul>
+<h2>Consequences</h2>
+<p>Diagnostic logging no longer depends on an OEM's logcat process behavior, so files contain the
+events emitted by the application's configured Kermit writers on supported devices. Users retain
+at most one compressed view of the legacy active log after upgrade, and support exports contain
+both pre-upgrade and current diagnostics without changing their ZIP format.</p>
+<p>The direct approach records only logs routed through Kermit; it intentionally does not capture
+arbitrary system or third-party logcat output. Migration adds a small amount of filesystem work on
+the first enabled direct-logging startup and requires focused tests for successful migration,
+failed finalization, restart recovery, deletion, and ZIP contents. The filename allow-list must
+be maintained if diagnostic log naming changes.</p>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse16">16. Beta releases from release-cycle branch tips</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse16" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>16. Beta releases from release-cycle branch tips</h1>
+<p>Date: 2026-10-14</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Release-cycle branches stabilize a selected Wire Android release while develop
+continues independently. Requiring beta commits to be ancestors of develop
+blocks stabilization fixes created or cherry-picked onto a release-cycle branch.
+Cherry-picking the same changes back produces different commits and does not
+satisfy that requirement.</p>
+<p>Allowing every historical release-cycle commit would enable a newly numbered
+beta to omit fixes already selected for the release. Restricting sources to the
+latest tip avoids that mistake, but reduces retry flexibility.</p>
+<h2>Decision</h2>
+<p>Beta releases originate only from live remote tips of <code>release/cycle-*</code> branches.
+Pushed tags must match at least one such tip; manual releases must match the
+selected release-cycle branch's tip. Develop ancestry is not required.</p>
+<p>Both workflows use one source-validation command through Make, following ADR
+0012. Existing tag format, app-version matching, numbering, checks, and
+distribution remain unchanged. Release/candidate retains its separate RC flow.</p>
+<p>Each executed source validation applies the tip rule anew. Successful validation
+pins the tagged commit for downstream jobs; no historical eligibility record is
+introduced.</p>
+<h2>Consequences</h2>
+<ul>
+<li>Release-cycle fixes can reach successive betas independently of develop.</li>
+<li>Older commits fail fresh validation after their branch advances or is deleted.</li>
+<li>Failed downstream jobs can reuse successful validation through ordinary
+failed-job reruns; rerunning validation may require a new beta at the latest tip.</li>
+<li>A branch moving before validation can cause rejection; moving afterward does
+not change the commit being built.</li>
+<li>This policy does not enforce monotonically newer deployments across retries.</li>
+<li>Existing release-cycle branches need the workflows and validation command
+before they can use this process.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-superseded">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse17">17. Firebase App Distribution for Dev builds</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-times"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse17" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>17. Firebase App Distribution for Dev builds</h1>
+<p>Date: 2026-08-20</p>
+<h2>Status</h2>
+<p>Superseded by <a href="0018-trusted-dev-distribution-from-branches-and-prs.md">ADR 0018</a>.</p>
+<h2>Context</h2>
+<p>We need to distribute DevDebug APKs to testers without adding App Distribution uploads to the
+shared build workflow. Firebase App Distribution requires the APK package name to match the
+selected Firebase Android app.</p>
+<h2>Decision</h2>
+<p>Use the Firebase CLI from the distribution workflow. CI writes
+<code>FIREBASE_APP_DISTRIBUTION_SERVICE_ACCOUNT_JSON</code> to a temporary credentials file and passes it as
+Application Default Credentials. Local builds do not include App Distribution tooling or tasks.</p>
+<p>Use a manual <code>Distribute Dev Build</code> workflow for uploads. The workflow accepts a PR number to reuse
+the existing DevDebug artifact from its successful Develop PR build. Without a PR number, it builds
+DevDebug from the branch selected when the workflow is dispatched.</p>
+<p>Dev's base application ID is <code>com.wire.android.dev</code>, so DevDebug uses
+<code>com.wire.android.dev.debug</code>, matching the Firebase Android app used for distribution.</p>
+<h2>Consequences</h2>
+<ul>
+<li>App Distribution is opt-in and does not alter the shared build workflow.</li>
+<li>The Dev package-ID change does not change <code>firebase_app_id</code>, <code>firebase_push_sender_id</code>, or the
+Firebase project used for push notifications.</li>
+<li>Existing <code>com.waz.zclient.dev.debug</code> installations do not update in place and should be treated
+as ephemeral Dev installations.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse18">18. Manual Dev distribution from branches and PRs</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse18" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>18. Manual Dev distribution from branches and PRs</h1>
+<p>Date: 2026-10-12</p>
+<h2>Status</h2>
+<p>Accepted. Supersedes <a href="0017-firebase-app-distribution-for-dev-builds.md">ADR 0017</a>.
+The PR APK source is superseded by <a href="0019-build-dev-pr-distribution-on-request.md">ADR 0019</a>.</p>
+<h2>Context</h2>
+<p>Testers need branch builds and existing PR APKs. Keep this a small manual workflow rather than
+adding a separate verification pipeline around Firebase uploads.</p>
+<h2>Decision</h2>
+<p>Manual dispatch from <code>develop</code> builds a repository <code>source-branch</code> (default <code>develop</code>) with
+<code>make build-dev</code> and the shared debug signing configuration. For PRs, a new comment containing
+exactly <code>/distribute-dev</code> invokes the same workflow through <code>workflow_call</code>, using the PR number
+and title as release notes. The shortcut checks the original commenter's effective repository
+permission and allows write access or higher. It reacts with thumbs up on acceptance or thumbs
+down on rejection; reactions acknowledge the request, while deployment results remain in Actions.
+The comment workflow lives on the default branch, which must be <code>develop</code> for this trusted flow.</p>
+<p>For a same-repository PR targeting <code>develop</code>, download the successful Develop CI APK for its head
+revision at selection time. Missing or expired artifacts fail at download; there is no rebuild fallback.</p>
+<p>Prepare one APK, transfer it to a separate upload job, and distribute it using the Firebase CLI.
+Keep the Firebase key in a <code>firebase-dev</code> environment restricted to <code>develop</code>, with no accessible
+repository/organization copy. Use a temporary credentials file, owner-only permissions, and exit
+cleanup. Require the internal tester group and append source/CI details to release notes.</p>
+<p>Use CI and Firebase's normal validation rather than custom package/certificate inspection,
+artifact-expiration preflight, or a second PR-head check. PR builds are CI test merges; branch
+builds receive an APK build only. Both must use the DevDebug package and shared signing identity.</p>
+<h2>Consequences</h2>
+<p>The workflow retains PR-number convenience and the credential boundary with fewer moving parts.
+It distributes the PR revision selected at the start even if the PR subsequently changes. Stable
+package/signing are build-configuration requirements; we do not inspect them before upload.
+GitHub environment/secret configuration remains required; updates to older version codes may
+require reinstalling. See the <a href="../../scripts/dev/README_FIREBASE_DISTRIBUTION.md">setup guide</a>.</p>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse19">19. Build Dev PR APKs on request</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse19" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>19. Build Dev PR APKs on request</h1>
+<p>Date: 2026-11-03</p>
+<h2>Status</h2>
+<p>Accepted. Supersedes the PR APK source in <a href="0018-trusted-dev-distribution-from-branches-and-prs.md">ADR 0018</a>.</p>
+<h2>Context</h2>
+<p>PR CI built a Dev-Debug APK and uploaded it to S3 on every PR. The build repeated what
+<code>connectedDevDebugAndroidTest</code> already compiles. It delayed green checks, and each PR needed an APK only
+occasionally.</p>
+<h2>Decision</h2>
+<p>Develop PR CI and the merge queue run only Lint, Detekt, Compose Stability, Unit Tests, and UI Tests.
+They do not build Dev-Debug and do not upload to S3.</p>
+<p>For a same-repository PR to <code>develop</code>, <code>/distribute-dev</code> from a user with write access verifies a
+successful Develop CI run for the PR head SHA. It then builds that exact SHA with <code>make build-dev</code>
+and the shared debug signing configuration. A separate job in the <code>firebase-dev</code> environment
+uploads the APK to Firebase. If Develop CI has not passed for the head SHA, the request fails.</p>
+<p>This replaces the ADR 0018 rule that downloads the Develop CI APK and has no rebuild fallback.
+Push, <code>main</code>, beta, release candidate, and production builds do not change.</p>
+<h2>Consequences</h2>
+<p>The first distribute after a push takes a full build, about 10 to 20 minutes. PR CI finishes
+sooner and stores no APK.</p>
+<p>The APK comes from the PR head, not from the CI test merge. Signing and secret-dependent
+configuration problems appear when you distribute, not when you open the PR. Branch protection does
+not require the build job. See the <a href="../../scripts/dev/README_FIREBASE_DISTRIBUTION.md">setup guide</a>.</p>
+</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading adr-accepted">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse20">20. Android release log</a>
+
+                        
+                        <i class="adr-icon fas fa-fw fa-check"></i>
+                        
+
+                    </h4>
+                </div>
+                <div id="collapse20" class="panel-collapse collapse">
+                    <div class="panel-body"><h1>20. Android release log</h1>
+<p>Date: 2026-11-09</p>
+<h2>Status</h2>
+<p>Accepted</p>
+<h2>Context</h2>
+<p>Beta, production, and regression results sit in separate workflow runs. QA and the release captain collect the links by hand. They need one page per release that shows what was built, what was tested, and what is missing. The page must not become a build, test, signing, or deployment gate.</p>
+<p>Three identities stay separate. The application build is a run and attempt. The final signed APK is a SHA-256 digest. A QA execution has its own run and attempt, and it tests an APK that an earlier run built. Run names, test commits, and the value <code>latest</code> do not identify that APK.</p>
+<h2>Decision</h2>
+<p>Release workflows export evidence. A separate reporter workflow sends it to Confluence. Confluence automation writes the page.</p>
+<ul>
+<li>The Beta and Prod build runs and the manual production regression run each export evidence records as <code>evidence.json</code> files. A build run exports two, a context record and a build record. The export steps are nonblocking. The artifacts are kept for 90 days. Binary artifact retention does not change.</li>
+<li>F-Droid builds, scheduled QA runs, and unrelated workflows are not reported. A production regression run is identified by its source workflow, <code>qa-android-prod-tests.yml</code>, and not by its <code>TAGS</code> value.</li>
+<li>The reporter runs on <code>workflow_run</code> completion. It uses trusted default-branch code, read-only permissions, and the <code>release-log</code> environment. It checks each export against GitHub run metadata. It treats downloaded files as data and never executes them.</li>
+<li>The reporter matches a regression to a production build by the SHA-256 of the tested APK. One match attaches the regression to that build. No match, or several, reads <code>Not attached to a build</code>, and the reporter never guesses.</li>
+<li>The reporter sends one HTTPS POST to a Confluence automation incoming webhook. The request carries the <code>X-Automation-Webhook-Token</code> header and flat text fields: version, kind, result, links, commit, APK name and digest, deploy outcome, test counts, and gaps. It uses a 20-second timeout, follows no redirect, never retries on its own, and never logs the webhook URL or token.</li>
+<li>A Confluence automation rule keeps one page per release version. It appends each event to the page and creates the page for the first event. The rule lives in the Confluence automation settings. The repository documents none of it.</li>
+<li>The repository holds no Jira task, no Jira credentials, and no Confluence API token. The webhook URL and token are the only secrets. They live in the <code>release-log</code> environment.</li>
+<li>Publication is off unless the repository variable <code>RELEASE_LOG_PUBLICATION_ENABLED</code> is <code>true</code>. When it is off, the reporter writes a preview and sends nothing.</li>
+</ul>
+<p>ADR 0016 source policy and ADR 0012 Make entrypoints do not change. The reporting commands run through Make.</p>
+<h2>Consequences</h2>
+<ul>
+<li>Reporting cannot change a build, test, signing, or deployment result. A reporter failure shows in its own run.</li>
+<li>HTTP success means Confluence accepted the request. The page content is checked in Confluence.</li>
+<li>The page grows by appended entries. Editors keep the QA assessment and release captain sections, which the rule never rewrites.</li>
+<li>Two first events for the same new version within seconds can create a second page with a numbered title. Events for one release arrive minutes or days apart, so the pilot accepts the risk.</li>
+<li>The rule creates the page for whichever event arrives first. If Beta 1 never arrives, Beta 2 creates the page, and a hand run of Beta 1 later appends below it. Each entry names its run, so the order on the page is the order of arrival.</li>
+<li>The rule finds the page by its title and location. Renaming or moving the page, or a page with the same title elsewhere, makes the next event create a numbered page. Editors leave the title and location alone.</li>
+<li>A cancelled run can leave its export missing. The reporter then sends the evidence it can verify and states the gap.</li>
+<li>A release-cycle branch without the export steps gets partial evidence until it receives them.</li>
+<li>The rule and the reporter are two parts with one field contract. A change to a field name needs a change in both.</li>
+</ul>
+</div>
+                </div>
+            </div>
+            
+        </div>
+        <footer>
+            Generated with &lt;3 using ADR Viewer
+        </footer>
+        
+    </body>
+</html>
