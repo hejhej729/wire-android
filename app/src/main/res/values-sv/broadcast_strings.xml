@@ -27,4 +27,9 @@
         <item quantity="one">%1$d/%2$d - %3$d sekund återstår</item>
         <item quantity="other">%1$d/%2$d - %3$d sekunder återstår</item>
     </plurals>
+    <string name="broadcast_expired_title">Prenumerationen har gått ut</string>
+    <string name="broadcast_expired_text">Den här versionen har gått ut och du har loggats ut. Installera den nya versionen för att fortsätta.</string>
+    <string name="broadcast_expiry_warning">Den här versionen går ut om %1$d dag(ar). Installera den nya versionen i tid.</string>
+    <string name="broadcast_countdown_title">Den här versionen går ut. Utloggning om</string>
+    <string name="broadcast_countdown_seconds">%1$d s</string>
 </resources>

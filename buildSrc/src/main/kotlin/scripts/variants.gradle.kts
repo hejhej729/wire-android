@@ -37,12 +37,14 @@ fun NamedDomainObjectContainer<ApplicationProductFlavor>.createAppFlavour(
     flavour: ProductFlavors
 ) {
     create(flavour.buildName) {
+        // Betal build: separate app id/name so it can be installed next to the personal build (no shared user id clash).
+        val idSuffix = System.getenv("BROADCAST_APP_ID_SUFFIX").orEmpty()
         dimension = flavour.dimensions
-        applicationId = flavorApplicationId
+        applicationId = flavorApplicationId + idSuffix
         versionNameSuffix = flavour.versionNameSuffix
-        resValue("string", "app_name", flavour.appName)
-        manifestPlaceholders["sharedUserId"] = sharedUserId
-        manifestPlaceholders["appAuthRedirectScheme"] = flavorApplicationId
+        resValue("string", "app_name", System.getenv("BROADCAST_APP_NAME") ?: flavour.appName)
+        manifestPlaceholders["sharedUserId"] = sharedUserId + idSuffix
+        manifestPlaceholders["appAuthRedirectScheme"] = flavorApplicationId + idSuffix
     }
 }
 

@@ -76,6 +76,14 @@ android {
             navigationDiagnosticsEnabled.toString(),
         )
 
+        // Betal build: fixed expiry baked in at build time (minutes from now), default 30 days.
+        val broadcastExpiryMinutes = System.getenv("BROADCAST_EXPIRY_MINUTES")?.toLongOrNull() ?: (30L * 24 * 60)
+        buildConfigField(
+            "long",
+            "BROADCAST_EXPIRY_MS",
+            "${System.currentTimeMillis() + broadcastExpiryMinutes * 60_000L}L",
+        )
+
         ndk {
             abiFilters.apply {
                 add("armeabi-v7a")

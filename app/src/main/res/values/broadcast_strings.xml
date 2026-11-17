@@ -27,4 +27,9 @@
         <item quantity="one">%1$d/%2$d - %3$d second left</item>
         <item quantity="other">%1$d/%2$d - %3$d seconds left</item>
     </plurals>
+    <string name="broadcast_expired_title">Subscription expired</string>
+    <string name="broadcast_expired_text">This version has expired and you have been logged out. Install the new version to continue.</string>
+    <string name="broadcast_expiry_warning">This version expires in %1$d day(s). Install the new version in time.</string>
+    <string name="broadcast_countdown_title">This version is expiring. Logging out in</string>
+    <string name="broadcast_countdown_seconds">%1$d s</string>
 </resources>

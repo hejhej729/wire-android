@@ -23,11 +23,17 @@ import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
+import android.widget.Toast
 import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Box
+import com.wire.android.R
+import com.wire.android.ui.home.broadcast.BroadcastExpiredScreen
+import com.wire.android.ui.home.broadcast.BroadcastExpiry
+import com.wire.android.ui.home.broadcast.BroadcastExpiryCountdown
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -112,6 +118,7 @@ class WireActivity : BaseActivity() {
     // This flag is used to keep the splash screen open until the first screen is drawn.
     private var shouldKeepSplashOpen = true
     private var isAppLockActivityLaunching = false
+    private var isInExpiredMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val startupAt = SystemClock.elapsedRealtime()
@@ -125,6 +132,16 @@ class WireActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         WireViewModelDiagnostics.ownerAvailable(this, ACTIVITY_COORDINATOR_OWNER_KEY)
         splashScreen.setKeepOnScreenCondition { shouldKeepSplashOpen }
+        if (BroadcastExpiry.isExpired()) {
+            // Expired build: accounts are logged out by the application and only a lock screen is shown.
+            isInExpiredMode = true
+            shouldKeepSplashOpen = false
+            setContent { BroadcastExpiredScreen() }
+            return
+        }
+        if (BroadcastExpiry.shouldWarn()) {
+            Toast.makeText(this, getString(R.string.broadcast_expiry_warning, BroadcastExpiry.daysLeft()), Toast.LENGTH_LONG).show()
+        }
         traceStartup("activity.onCreate.afterSuper", startupAt)
         val initialIntentRequest = captureIntentRequest(intent, savedInstanceState)
 
@@ -207,6 +224,7 @@ class WireActivity : BaseActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        if (isInExpiredMode) return
 
         if (intent.action?.equals(Intent.ACTION_SYNC) == true) {
             handleSynchronizeExternalData(intent)
@@ -245,10 +263,13 @@ class WireActivity : BaseActivity() {
             },
         )
         setContent {
-            WireActivityNavigation3Host(
-                startDestination = startDestination,
-                dependencies = hostDependencies,
-            )
+            Box {
+                WireActivityNavigation3Host(
+                    startDestination = startDestination,
+                    dependencies = hostDependencies,
+                )
+                BroadcastExpiryCountdown(onExpired = { recreate() })
+            }
         }
     }
 
@@ -261,11 +282,16 @@ class WireActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (isInExpiredMode) return
+        if (BroadcastExpiry.isExpired()) {
+            recreate()
+            return
+        }
         shakeDetector.start()
     }
 
     override fun onPause() {
-        shakeDetector.stop()
+        if (::shakeDetector.isInitialized) shakeDetector.stop()
         super.onPause()
     }
 

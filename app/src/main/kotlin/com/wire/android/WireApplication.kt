@@ -147,6 +147,8 @@ class WireApplication : BaseApp() {
         startActivityLifecycleCallback()
         traceStartup("application.onCreate.afterSetup", startupAt)
 
+        globalAppScope.launch { com.wire.android.ui.home.broadcast.BroadcastExpiry.enforceWhileRunning(coreLogic.value) }
+
         globalAppScope.launch {
             traceStartup("deferred.startup.begin")
             withContext(Dispatchers.Main) {
