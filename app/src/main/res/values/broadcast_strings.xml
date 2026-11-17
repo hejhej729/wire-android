@@ -32,4 +32,6 @@
     <string name="broadcast_expiry_warning">This version expires in %1$d day(s). Install the new version in time.</string>
     <string name="broadcast_countdown_title">This version is expiring. Logging out in</string>
     <string name="broadcast_countdown_seconds">%1$d s</string>
+    <string name="broadcast_expiry_label">Expires in %1$d d %2$d h %3$d min</string>
+    <string name="broadcast_expiry_label_soon">Expires in less than a minute</string>
 </resources>

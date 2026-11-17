@@ -51,6 +51,8 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import com.wire.android.R
+import com.wire.android.ui.home.broadcast.BroadcastExpiryLabel
+import androidx.compose.ui.unit.dp
 import com.wire.android.ui.common.R as commonR
 import com.wire.android.model.Clickable
 import com.wire.android.navigation.HomeDestination
@@ -121,6 +123,8 @@ fun HomeDrawer(
                 )
             }
         }
+
+        BroadcastExpiryLabel(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
 
         Spacer(modifier = Modifier.weight(1f))
 

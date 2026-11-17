@@ -144,6 +144,39 @@ fun BroadcastExpiryCountdown(onExpired: () -> Unit) {
 }
 
 private const val COUNTDOWN_BACKDROP = 0xE6000000
+private const val LABEL_REFRESH_MS = 15_000L
+private const val MS_PER_MINUTE = 60_000L
+private const val MINUTES_PER_HOUR = 60L
+private const val HOURS_PER_DAY = 24L
+
+/** Small text for the side menu showing how long the app still works, e.g. "Expires in 29 d 4 h 12 min". */
+@Composable
+fun BroadcastExpiryLabel(modifier: Modifier = Modifier) {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            now = System.currentTimeMillis()
+            delay(LABEL_REFRESH_MS)
+        }
+    }
+    val totalMinutes = BroadcastExpiry.millisLeft(now) / MS_PER_MINUTE
+    val text = if (totalMinutes <= 0L) {
+        stringResource(R.string.broadcast_expiry_label_soon)
+    } else {
+        stringResource(
+            R.string.broadcast_expiry_label,
+            totalMinutes / (MINUTES_PER_HOUR * HOURS_PER_DAY),
+            (totalMinutes / MINUTES_PER_HOUR) % HOURS_PER_DAY,
+            totalMinutes % MINUTES_PER_HOUR
+        )
+    }
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = modifier
+    )
+}
 
 @Composable
 fun BroadcastExpiredScreen() {
