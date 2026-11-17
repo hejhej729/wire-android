@@ -2,6 +2,10 @@ name: Build Broadcast APK
 
 on:
   workflow_dispatch:
+    inputs:
+      keepalive:
+        description: "Only refresh the signing key cache (no build)"
+        default: "false"
   push:
     branches: [ 'broadcast-*' ]
 
@@ -9,7 +13,18 @@ permissions:
   contents: write
 
 jobs:
+  keepalive:
+    if: github.event.inputs.keepalive == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Touch the signing key cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.broadcast-keys
+          key: broadcast-signing-key-v1
+
   build:
+    if: github.event.inputs.keepalive != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
