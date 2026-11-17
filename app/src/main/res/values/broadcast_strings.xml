@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="broadcast_screen_title">Broadcast</string>
+    <string name="broadcast_message_label">Message</string>
+    <string name="broadcast_delay_label">Pause between messages: %1$d s</string>
+    <string name="broadcast_search_label">Search contacts</string>
+    <string name="broadcast_select_all">Select all</string>
+    <string name="broadcast_select_none">Select none</string>
+    <string name="broadcast_selected_count">%1$d of %2$d selected</string>
+    <string name="broadcast_send">Send</string>
+    <string name="broadcast_cancel">Cancel</string>
+    <string name="broadcast_stop">Stop</string>
+    <string name="broadcast_ok">OK</string>
+    <string name="broadcast_send_to">Send to %1$d</string>
+    <string name="broadcast_confirm_title">Send broadcast?</string>
+    <string name="broadcast_done">Done: %1$d sent, %2$d failed</string>
+    <string name="broadcast_stopped">Stopped: %1$d sent, %2$d failed of %3$d</string>
+    <plurals name="broadcast_confirm_text">
+        <item quantity="one">The message will be sent to %1$d person.</item>
+        <item quantity="other">The message will be sent to %1$d people, one at a time. Keep the app open until it is done.</item>
+    </plurals>
+    <plurals name="broadcast_status_minutes">
+        <item quantity="one">%1$d/%2$d - %3$d minute left</item>
+        <item quantity="other">%1$d/%2$d - %3$d minutes left</item>
+    </plurals>
+    <plurals name="broadcast_status_seconds">
+        <item quantity="one">%1$d/%2$d - %3$d second left</item>
+        <item quantity="other">%1$d/%2$d - %3$d seconds left</item>
+    </plurals>
+</resources>

@@ -57,6 +57,11 @@ sealed class HomeDestination(
         searchBar = SearchBarOptions(),
     )
 
+    data object Broadcast : HomeDestination(
+        title = UIText.StringResource(R.string.broadcast_screen_title),
+        icon = R.drawable.ic_send,
+    )
+
     data object Support : HomeDestination(
         title = UIText.StringResource(R.string.support_screen_title),
         icon = R.drawable.ic_support,
@@ -121,6 +126,6 @@ sealed class HomeDestination(
         private const val ITEM_NAME_PREFIX = "HomeNavigationItem."
 
         fun values(): Array<HomeDestination> =
-            arrayOf(Conversations, Settings, Vault, Archive, Support, TeamManagement, WhatsNew, Cells, Meetings)
+            arrayOf(Conversations, Settings, Vault, Archive, Support, TeamManagement, WhatsNew, Cells, Meetings, Broadcast)
     }
 }

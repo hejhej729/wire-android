@@ -29,6 +29,7 @@ import com.wire.android.feature.cells.ui.cellViewModel
 import com.wire.android.navigation.HomeDestination
 import com.wire.android.navigation.navigation3.WireNavigation3Runtime
 import com.wire.android.ui.home.archive.ArchiveScreen
+import com.wire.android.ui.home.broadcast.BroadcastScreen
 import com.wire.android.ui.home.cell.GlobalCellsScreen
 import com.wire.android.ui.home.conversationslist.ConversationListNavigationActions
 import com.wire.android.ui.home.meetings.MeetingsScreen
@@ -86,6 +87,8 @@ internal fun HomeNavigation3TopLevelContent(
             homeShellState = shellState,
             navigationActions = actions.conversationList,
         )
+
+        HomeTopLevelDestination.BROADCAST -> BroadcastScreen()
 
         HomeTopLevelDestination.WHATS_NEW -> WhatsNewScreen(
             homeShellState = shellState,
