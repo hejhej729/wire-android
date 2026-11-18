@@ -59,6 +59,8 @@ import com.wire.android.ui.theme.WireTheme
 import com.wire.android.ui.theme.wireTypography
 import com.wire.android.util.ui.PreviewMultipleThemes
 
+private const val SHOW_BACKEND_SELECTOR = false
+
 @Composable
 fun NewAuthContainer(
     header: @Composable () -> Unit = {},
@@ -72,7 +74,8 @@ fun NewAuthContainer(
     WireScaffold(
         containerColor = Color.Transparent,
         topBar = {
-            if (BuildConfig.PRIVATE_BUILD && showBackendSelector) {
+            // Personal build: the internal test-backend dropdown is hidden so only the production backend is used.
+            if (BuildConfig.PRIVATE_BUILD && showBackendSelector && SHOW_BACKEND_SELECTOR) {
                 BackendSelectorDropDown(onNoBackendSelected = onNoBackendSelected)
             }
         },
